@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR" 
+      xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>SCRS - Registro de Venda</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    </head>
+    <body class="bg-light">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card shadow">
+                        <div class="card-body p-5">
+                            <h2 class="card-title text-center mb-4">Registro de Venda</h2>
+                            
+                            <form th:action="@{/vendas/registro}" th:object="${venda}" method="post">
+                                <input type="hidden" th:field="*{id}"/>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Nome do Cliente:</label>
+                                        <input type="text" class="form-control" th:field="*{nomeCliente}" maxlength="100" required>
+                                    </div>
+                                    
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">CPF do cliente:</label>
+                                        <input type="text" class="form-control" th:field="*{cpfCliente}" id="cpf" placeholder="000.000.000-00" minlength="14" maxlength="14" required>
+                                        <small class="text-muted">Formato: 000.000.000-00</small>
+                                    </div>
+                                    
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Data da Venda:</label>
+                                        <input type="date" class="form-control" th:field="*{dataVenda}" required>
+                                    </div>
+                                    
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Tipo de Seguro:</label>
+                                        <select class="form-select" th:field="*{tipoSeguro}" required>
+                                            <option value="">Selecione</option>
+                                            <option value="Carro">Carro</option>
+                                            <option value="Casa">Casa</option>
+                                            <option value="Vida">Vida</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Valor da Apólice (R$):</label>
+                                        <input type="number" class="form-control" th:field="*{valorApolice}" step="0.01" min="1" required>
+                                    </div>
+                                    
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Cliente é fiel?</label>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" th:field="*{fiel}" value="true" required>
+                                                <label class="form-check-label">Sim</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" th:field="*{fiel}" value="false" required>
+                                                <label class="form-check-label">Não</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger mt-3">
+                                    <ul>
+                                        <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+                                    </ul>
+                                </div>
+                                    
+                                <div th:if="${erro}" class="alert alert-danger mt-3" th:text="${erro}"></div>
+                                <div th:if="${mensagem}" class="alert alert-success mt-3" th:text="${mensagem}"></div>
+                                
+                                <div class="d-grid gap-2 d-md-flex justify-content-center mt-4">
+                                    <a th:href="@{/menu}" class="btn btn-secondary me-md-2">Voltar</a>
+                                    <button type="submit" class="btn btn-primary">Registrar Venda</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="/js/formatacao.js"></script>
+    </body>
+</html>
