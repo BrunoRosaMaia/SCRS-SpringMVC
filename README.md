@@ -24,7 +24,7 @@ Em desenvolvimento
 
 ## Time de Desenvolvedores
 
-- [Bruno Rosa Maia]
+- [Christian Soares]
 
 
 
